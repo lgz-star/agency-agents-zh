@@ -78,12 +78,14 @@ cp -r agency-agents-zh/* ~/.claude/agents/
 
 | 智能体 | 专长 | 适用场景 |
 |--------|------|----------|
-| [小红书运营](marketing/marketing-xiaohongshu-operator.md) | 种草笔记、达人合作、爆款内容 | 小红书获客、品牌种草 |
-| [抖音策略师](marketing/marketing-douyin-strategist.md) | 短视频策划、算法优化、直播带货 | 抖音增长、短视频营销 |
-| [微信公众号运营](marketing/marketing-wechat-operator.md) | 公众号内容、社群运营、裂变增长 | 微信生态营销 |
+| [小红书运营](marketing/marketing-xiaohongshu-operator.md) ⭐ | 种草笔记、达人合作、爆款内容 | 小红书获客、品牌种草 |
+| [抖音策略师](marketing/marketing-douyin-strategist.md) ⭐ | 短视频策划、算法优化、直播带货 | 抖音增长、短视频营销 |
+| [微信公众号运营](marketing/marketing-wechat-operator.md) ⭐ | 公众号内容、社群运营、裂变增长 | 微信生态营销 |
 | [小红书专家](marketing/marketing-xiaohongshu-specialist.md) | 生活方式内容、趋势策略 | 小红书品牌建设 |
 | [微信公众号管理](marketing/marketing-wechat-official-account.md) | 订阅者运营、内容营销 | 微信公众号增长 |
 | [知乎策略师](marketing/marketing-zhihu-strategist.md) | 知识型内容、思想领袖建设 | 知乎品牌权威 |
+
+> ⭐ 标记的是本项目原创，更贴合国内实操。其余为上游英文版翻译。
 
 **出海营销：**
 
