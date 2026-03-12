@@ -16,6 +16,7 @@
 #   aider        — 单文件 CONVENTIONS.md for Aider
 #   windsurf     — 单文件 .windsurfrules for Windsurf
 #   openclaw     — OpenClaw SOUL.md 文件 (openclaw_workspace/<agent>/SOUL.md)
+#   qwen         — Qwen Code SubAgent 文件 (~/.qwen/agents/*.md)
 #   all          — 所有工具（默认）
 #
 # 输出到仓库根目录下的 integrations/<tool>/。
@@ -272,6 +273,41 @@ ${description}
 HEREDOC
 }
 
+convert_qwen() {
+  local file="$1"
+  local name description tools slug outfile body
+
+  name="$(get_field "name" "$file")"
+  description="$(get_field "description" "$file")"
+  tools="$(get_field "tools" "$file")"
+  slug="$(slugify_from_file "$file")"
+  body="$(get_body "$file")"
+
+  outfile="$OUT_DIR/qwen/agents/${slug}.md"
+  mkdir -p "$(dirname "$outfile")"
+
+  # Qwen Code SubAgent 格式：带 YAML frontmatter 的 .md 文件
+  # name 和 description 必填；tools 可选（仅在源文件中存在时添加）
+  if [[ -n "$tools" ]]; then
+    cat > "$outfile" <<HEREDOC
+---
+name: ${slug}
+description: ${description}
+tools: ${tools}
+---
+${body}
+HEREDOC
+  else
+    cat > "$outfile" <<HEREDOC
+---
+name: ${slug}
+description: ${description}
+---
+${body}
+HEREDOC
+  fi
+}
+
 # Aider 和 Windsurf 是单文件格式，先累积再统一写入
 AIDER_TMP="$(mktemp)"
 WINDSURF_TMP="$(mktemp)"
@@ -365,6 +401,7 @@ run_conversions() {
         opencode)    convert_opencode    "$file" ;;
         cursor)      convert_cursor      "$file" ;;
         openclaw)    convert_openclaw    "$file" ;;
+        qwen)        convert_qwen        "$file" ;;
         aider)       accumulate_aider    "$file" ;;
         windsurf)    accumulate_windsurf "$file" ;;
       esac
@@ -398,7 +435,7 @@ main() {
     esac
   done
 
-  local valid_tools=("antigravity" "gemini-cli" "opencode" "cursor" "aider" "windsurf" "openclaw" "all")
+  local valid_tools=("antigravity" "gemini-cli" "opencode" "cursor" "aider" "windsurf" "openclaw" "qwen" "all")
   local valid=false
   for t in "${valid_tools[@]}"; do [[ "$t" == "$tool" ]] && valid=true && break; done
   if ! $valid; then
@@ -414,7 +451,7 @@ main() {
 
   local tools_to_run=()
   if [[ "$tool" == "all" ]]; then
-    tools_to_run=("antigravity" "gemini-cli" "opencode" "cursor" "aider" "windsurf" "openclaw")
+    tools_to_run=("antigravity" "gemini-cli" "opencode" "cursor" "aider" "windsurf" "openclaw" "qwen")
   else
     tools_to_run=("$tool")
   fi

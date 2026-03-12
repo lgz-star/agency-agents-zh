@@ -7,7 +7,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 
 > 本项目基于 [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)（MIT 协议）翻译并本土化，新增了中国平台专属智能体。
-> 当前收录 **138 个智能体**（119 个上游翻译 + 19 个中国市场原创）。
+> 当前收录 **146 个智能体**（127 个上游翻译 + 19 个中国市场原创）。
 
 ---
 
@@ -26,7 +26,7 @@
 
 ### 方式一：一键安装到你的 AI 工具
 
-支持 **9 种主流 AI 编程工具**，一条命令搞定：
+支持 **10 种主流 AI 编程工具**，一条命令搞定：
 
 ```bash
 # 自动检测已安装的工具，一键安装
@@ -42,6 +42,7 @@
 ./scripts/install.sh --tool windsurf       # Windsurf
 ./scripts/install.sh --tool antigravity    # Antigravity
 ./scripts/install.sh --tool gemini-cli     # Gemini CLI
+./scripts/install.sh --tool qwen           # Qwen Code
 ```
 
 > 部分工具需要先运行 `./scripts/convert.sh` 转换格式，详见下方工具集成说明。
@@ -86,6 +87,11 @@ cp -r marketing/*.md ~/.claude/agents/
 | [威胁检测工程师](engineering/engineering-threat-detection-engineer.md) | SIEM、威胁狩猎、检测规则 | 安全运营、威胁检测 |
 | [Solidity 智能合约工程师](engineering/engineering-solidity-smart-contract-engineer.md) | Solidity、EVM、Gas 优化、DeFi | 智能合约开发、Web3 |
 | [微信小程序开发者](engineering/engineering-wechat-mini-program-developer.md) ⭐ | WXML/WXSS、微信支付、云开发 | 微信小程序全栈开发 |
+| [代码审查员](engineering/engineering-code-reviewer.md) | 代码审查、安全审计、质量把关 | PR 审查、代码质量 |
+| [数据库优化师](engineering/engineering-database-optimizer.md) | Schema 设计、查询优化、索引策略 | 数据库性能调优 |
+| [Git 工作流大师](engineering/engineering-git-workflow-master.md) | 分支策略、约定式提交、变基 | Git 工作流规范 |
+| [软件架构师](engineering/engineering-software-architect.md) | 系统设计、DDD、架构决策 | 系统架构设计 |
+| [SRE](engineering/engineering-sre.md) | SLO、可观测性、混沌工程 | 站点可靠性工程 |
 | [飞书集成开发工程师](engineering/engineering-feishu-integration-developer.md) ⭐ | 飞书机器人、审批流、多维表格 | 飞书生态集成开发 |
 
 ### 设计部
@@ -151,6 +157,7 @@ cp -r marketing/*.md ~/.claude/agents/
 | [SEO 专家](marketing/marketing-seo-specialist.md) | 搜索引擎优化、技术 SEO | Google SEO、内容优化 |
 | [轮播图增长引擎](marketing/marketing-carousel-growth-engine.md) | 轮播图内容、自动化投放 | 社交媒体轮播素材 |
 | [LinkedIn 内容创作专家](marketing/marketing-linkedin-content-creator.md) | LinkedIn 职场内容、B2B 获客 | LinkedIn 品牌建设 |
+| [图书联合作者](marketing/marketing-book-co-author.md) | 思想领袖力图书、代笔协作 | 图书策划与撰写 |
 
 ### 付费媒体部
 
@@ -259,6 +266,8 @@ cp -r marketing/*.md ~/.claude/agents/
 | [留学规划顾问](specialized/study-abroad-advisor.md) ⭐ | 多国申请策略、选校定位 | 留学规划、文书指导 |
 | [政务数字化售前顾问](specialized/government-digital-presales-consultant.md) ⭐ | 方案设计、标书、等保/信创 | 政务ToG项目售前 |
 | [企业培训课程设计师](specialized/corporate-training-designer.md) ⭐ | ADDIE/SAM、企业学习平台、TTT | 培训体系搭建与课程开发 |
+| [MCP 构建器](specialized/specialized-mcp-builder.md) | MCP 服务器、工具设计、API 集成 | MCP 开发、AI 工具扩展 |
+| [文档生成器](specialized/specialized-document-generator.md) | PDF/PPTX/DOCX/XLSX 生成 | 程序化文档创建 |
 | [医疗健康营销合规师](specialized/healthcare-marketing-compliance.md) ⭐ | 医疗广告法、NMPA、互联网医疗 | 医疗健康营销合规 |
 
 ### 空间计算部
@@ -340,7 +349,7 @@ cp -r marketing/*.md ~/.claude/agents/
 
 ## 工具集成
 
-支持 9 种主流 AI 编程工具，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
+支持 **10 种主流 AI 编程工具**，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
 
 ### 支持的工具
 
@@ -351,6 +360,7 @@ cp -r marketing/*.md ~/.claude/agents/
 | **OpenClaw** | `~/.openclaw/agency-agents/` | 全局，需转换 |
 | **Antigravity** | `~/.gemini/antigravity/skills/` | 全局，需转换 |
 | **Gemini CLI** | `~/.gemini/extensions/agency-agents/` | 全局，需转换 |
+| **Qwen Code** | `.qwen/agents/` | 项目级，需转换 |
 | **Cursor** | `.cursor/rules/` | 项目级，需转换 |
 | **OpenCode** | `.opencode/agents/` | 项目级，需转换 |
 | **Aider** | `CONVENTIONS.md` | 项目级，需转换 |
@@ -371,7 +381,40 @@ cp -r marketing/*.md ~/.claude/agents/
 ./scripts/lint-agents.sh
 ```
 
-### OpenClaw 使用说明
+### 各工具安装说明
+
+<details>
+<summary><strong>Claude Code</strong></summary>
+
+智能体直接从仓库复制到 `~/.claude/agents/`，无需转换。
+
+```bash
+./scripts/install.sh --tool claude-code
+```
+
+在 Claude Code 中激活：
+```
+激活前端开发者模式，帮我审查这个组件。
+```
+</details>
+
+<details>
+<summary><strong>GitHub Copilot</strong></summary>
+
+智能体直接从仓库复制到 `~/.github/agents/`，无需转换。
+
+```bash
+./scripts/install.sh --tool copilot
+```
+
+在 GitHub Copilot 中激活：
+```
+使用前端开发者智能体帮我审查这个组件。
+```
+</details>
+
+<details>
+<summary><strong>OpenClaw</strong></summary>
 
 OpenClaw 会将每个智能体拆分为三个文件：
 - `SOUL.md` — 身份、记忆、沟通风格、关键规则
@@ -379,21 +422,115 @@ OpenClaw 会将每个智能体拆分为三个文件：
 - `IDENTITY.md` — 名称与简介
 
 ```bash
-# 转换 + 安装
 ./scripts/convert.sh --tool openclaw
 ./scripts/install.sh --tool openclaw
 
 # 安装后重启 OpenClaw 网关
 openclaw gateway restart
 ```
+</details>
 
-### 项目级工具（Cursor / OpenCode / Aider / Windsurf）
+<details>
+<summary><strong>Antigravity (Gemini)</strong></summary>
 
-这些工具的配置文件是项目级的，需要在目标项目根目录运行：
+转换为 Antigravity skill 格式并安装到 `~/.gemini/antigravity/skills/`。
 
 ```bash
+./scripts/convert.sh --tool antigravity
+./scripts/install.sh --tool antigravity
+```
+</details>
+
+<details>
+<summary><strong>Gemini CLI</strong></summary>
+
+转换为 Gemini CLI 扩展格式并安装到 `~/.gemini/extensions/agency-agents/`。
+
+```bash
+./scripts/convert.sh --tool gemini-cli
+./scripts/install.sh --tool gemini-cli
+```
+</details>
+
+<details>
+<summary><strong>Qwen Code</strong></summary>
+
+转换为 Qwen Code SubAgent 格式并安装到项目目录 `.qwen/agents/`。
+
+```bash
+./scripts/convert.sh --tool qwen
+cd /your/project
+/path/to/agency-agents-zh/scripts/install.sh --tool qwen
+```
+
+在 Qwen Code 中激活：
+```
+使用前端开发者智能体帮我审查这个组件。
+```
+
+> 提示：安装后在 Qwen Code 中运行 `/agents manage` 刷新，或重启会话。
+</details>
+
+<details>
+<summary><strong>Cursor</strong></summary>
+
+转换为 Cursor rule 文件并安装到项目目录 `.cursor/rules/`。
+
+```bash
+./scripts/convert.sh --tool cursor
 cd /your/project
 /path/to/agency-agents-zh/scripts/install.sh --tool cursor
+```
+</details>
+
+<details>
+<summary><strong>OpenCode</strong></summary>
+
+转换为 OpenCode agent 文件并安装到项目目录 `.opencode/agents/`。
+
+```bash
+./scripts/convert.sh --tool opencode
+cd /your/project
+/path/to/agency-agents-zh/scripts/install.sh --tool opencode
+```
+</details>
+
+<details>
+<summary><strong>Aider</strong></summary>
+
+所有智能体编译为单个 `CONVENTIONS.md` 文件，Aider 会自动读取。
+
+```bash
+./scripts/convert.sh --tool aider
+cd /your/project
+/path/to/agency-agents-zh/scripts/install.sh --tool aider
+```
+
+在 Aider 会话中激活：
+```
+使用前端开发者智能体帮我重构这个组件。
+```
+</details>
+
+<details>
+<summary><strong>Windsurf</strong></summary>
+
+所有智能体编译为单个 `.windsurfrules` 文件。
+
+```bash
+./scripts/convert.sh --tool windsurf
+cd /your/project
+/path/to/agency-agents-zh/scripts/install.sh --tool windsurf
+```
+</details>
+
+### 修改智能体后重新生成
+
+添加新智能体或编辑现有智能体后，重新生成集成文件：
+
+```bash
+./scripts/convert.sh               # 重新生成所有工具
+./scripts/convert.sh --tool cursor  # 只重新生成指定工具
 ```
 
 ---
